@@ -7,16 +7,13 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSlot
 from worker import Worker
 
-# /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
-
 class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
     """
     CREATE A SYSTEM TRAY ICON CLASS AND ADD MENU
     """
 
     def __init__(self, icon, parent=None):
-        # cm_state = QProcess.start(QStringListModel.stringList('cat'), QStringListModel.stringList('/home/abu/cek'), QIODevice.ReadOnly)
-        
+
         self.worker = Worker()
         self.worker.outSignal.connect(self.logging)
 
@@ -49,10 +46,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         conservation_mode.setIcon(QtGui.QIcon("icons/cm_icon.png"))
         
         exit_ = menu.addAction("Exit")
-        
-        # INIT
-        # action1.setChecked(True) if cm_state else action2.setChecked(True)
-        
+
         # TRIGGER
         self.action1.triggered.connect(self.toggle_cm_on)
         self.action2.triggered.connect(self.toggle_cm_off)
@@ -67,7 +61,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
 
     @pyqtSlot()
     def checkState(self):
-        command = 'cat /home/abu/cek'
+        command = 'cat /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
         self.worker.run_command(command, shell=True)
 
     def logging(self, string):
@@ -86,12 +80,14 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         # self.toogle_cm_on()
 
     def toggle_cm_on(self):
-        QProcess.startDetached()
-        self.action1.setChecked()
+        command = 'sudo echo 1 > /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
+        self.worker.run_command(command, shell=True)
+        self.action1.setChecked(True)
 
     def toggle_cm_off(self):
-        QProcess.startDetached()
-        self.action2.setChecked()
+        command = 'sudo echo 0 > /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode'
+        self.worker.run_command(command, shell=True)
+        self.action2.setChecked(True)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
