@@ -52,7 +52,7 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         self.action2.triggered.connect(self.toggle_cm_off)
 
         exit_.triggered.connect(lambda: sys.exit())
-        exit_.setIcon(QtGui.QIcon("icons/app_icon.png"))
+        exit_.setIcon(QtGui.QIcon("icons/exit.png"))
 
         menu.addSeparator()
         self.setContextMenu(menu)
