@@ -11,5 +11,25 @@ This is my personal project and for personal use, if this app is useful for you,
 ![alt text](https://i.ibb.co/kcGcJFk/ss.png)
 
 ## Build The App
-- Install pyinstaller package
-- ```pyinstaller --name="Lenovo Vantage Toolbar" --windowed --onefile main.py```
+### Create and using venv
+
+```console
+python -m venv env
+source env/bin/activate
+```
+### Install the requirement
+```console
+pip install -r requirements.txt
+```
+### Build it
+this will generate `dist` folder and `lenovo_vantage_toolbar_linux` executeable file inside
+```console
+pyinstaller --name="lenovo_vantage_toolbar_linux" --windowed --onefile main.py
+```
+
+### Make it run
+Try it with terminal
+```console
+sudo ./dist/lenovo_vantage_toolbar_linux
+```
+or make it run on start up
