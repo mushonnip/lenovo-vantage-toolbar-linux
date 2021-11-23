@@ -57,7 +57,6 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
 
         menu.addSeparator()
         self.setContextMenu(menu)
-        self.activated.connect(self.onTrayIconActivated)
 
     @pyqtSlot()
     def checkState(self):
