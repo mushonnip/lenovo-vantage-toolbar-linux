@@ -1,1 +1,6 @@
 __pycache__
+env
+.vscode
+build
+dist
+lenovo_vantage_toolbar_linux.spec
